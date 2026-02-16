@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidAPI Framework - Zero Config REST APIs</title>
+    <meta name="description" content="Lightning-fast REST API framework with automatic documentation, type safety, and zero configuration">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        /**
+         * Design Philosophy: Neo-Brutalism
+         * Primary: Bright Yellow #FFD700
+         * Accent: Hot Pink #FF1493
+         * Background: Off-white #F5F5F5
+         * Typography: Space Grotesk Bold (headings), Inter Medium (body)
+         */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            background: #F5F5F5;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background: #FFF;
+            border-bottom: 4px solid #000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #FFD700;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: none;
+        }
+        
+        .nav-links a:hover {
+            color: #FF1493;
+        }
+        
+        /* Button */
+        .btn {
+            padding: 1rem 2rem;
+            border: 3px solid #000;
+            background: #FFD700;
+            color: #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 #000;
+            transition: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 #000;
+        }
+        
+        .btn-pink {
+            background: #FF1493;
+            color: #FFF;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-highlight {
+            background: #FFD700;
+            padding: 0 0.5rem;
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border: 4px solid #000;
+            box-shadow: 12px 12px 0 #000;
+        }
+        
+        .hero-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: #FF1493;
+            color: #FFF;
+            padding: 1rem 1.5rem;
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            transform: rotate(5deg);
+        }
+        
+        /* Features */
+        .features {
+            padding: 6rem 0;
+            background: #FFF;
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: #FFD700;
+            padding: 0.5rem 1rem;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: #F5F5F5;
+            border: 3px solid #000;
+            padding: 2rem;
+            box-shadow: 8px 8px 0 #000;
+            transform: rotate(-1deg);
+        }
+        
+        .feature-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+        
+        .feature-card:hover {
+            transform: rotate(0deg) translateY(-4px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #FFD700;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card:nth-child(3n) .feature-icon {
+            background: #FF1493;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #FF1493;
+            font-weight: 700;
+        }
+        
+        /* Code Section */
+        .code-section {
+            padding: 6rem 0;
+        }
+        
+        .code-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .code-card {
+            background: #FFF;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0 #000;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            background: #FFD700;
+            padding: 1rem;
+            border-bottom: 3px solid #000;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .code-card:nth-child(2) .code-header {
+            background: #FF1493;
+            color: #FFF;
+        }
+        
+        .code-body {
+            padding: 1.5rem;
+        }
+        
+        .code-body pre {
+            background: #000;
+            color: #FFD700;
+            padding: 1rem;
+            border: 2px solid #000;
+            overflow-x: auto;
+            font-size: 0.875rem;
+        }
+        
+        .code-body ol {
+            padding-left: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .code-body ol li {
+            margin: 0.5rem 0;
+        }
+        
+        /* CTA */
+        .cta {
+            padding: 6rem 0;
+            background: #FFD700;
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+        }
+        
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+        
+        .cta-highlight {
+            background: #FF1493;
+            color: #FFF;
+            padding: 0 0.5rem;
+            display: inline-block;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            color: #FFF;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col a {
+            color: #FFF;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+        
+        .footer-col a:hover {
+            color: #FF1493;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 2px solid #FFD700;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content,
+            .features-grid,
+            .code-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                RapidAPI
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+                <li><a href="https://github.com">GitHub</a></li>
+            </ul>
+            <a href="#" class="btn">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <h1>
+                        Build APIs<br>
+                        <span class="hero-highlight">In Seconds</span>
+                    </h1>
+                    <p>Lightning-fast REST API framework with automatic documentation, type safety, and zero configuration. Ship production APIs faster than ever.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn">Start Building</a>
+                        <a href="#" class="btn btn-pink">View Docs</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://private-us-east-1.manuscdn.com/sessionFile/yJ4xAHmF2JGsFOXKub0DCZ/sandbox/eSoKjhy3hV0Ukvc7OiFAB1-img-1_1771236656000_na1fn_cmFwaWRhcGktaGVybw.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUveUo0eEFIbUYySkdzRk9YS3ViMERDWi9zYW5kYm94L2VTb0tqaHkzaFYwVWt2YzdPaUZBQjEtaW1nLTFfMTc3MTIzNjY1NjAwMF9uYTFmbl9jbUZ3YVdSaGNHa3RhR1Z5YncucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=EdAzUAAmeEx5HXFnaOdWVGsr9pDzGHNzWHMMESCacV9SNlMtCZDC5U~zQqnlyPPQDpBVgZrYDxfvaVwxaExEnEigpCAktyrNBIU4WssZjCe~jMroGjPWX9J4EeL3~QCrUp4AC22IMXOvbY9luOlFP24cr0cpWdG85YVYqLTVqmzjz4srLNcJbY99veX5i7n48lxdzXXfq8d2kp1S4OU6-UbUDkmuCNw04L3nb6suEnGIoROj-J64q-HpTbfgG14xPj1fU6dhYr0Lp1F5Y735UQ4~9QTw95RiPQOvddgKKpqQ0W-mD-Ej-~ywUEQtxzmK4r1u8fktVSKYHQNHFEz6ug__" alt="API Architecture">
+                    <div class="hero-badge">Zero Config</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Core Features</div>
+                <h2>Everything Built-In</h2>
+                <p style="font-size: 1.25rem; font-weight: 600;">No configuration, no boilerplate, just pure speed</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Zero Config</h3>
+                    <p>Start building APIs instantly. No setup files, no configuration hell. Just write code.</p>
+                    <ul class="feature-list">
+                        <li>Auto-routing</li>
+                        <li>Hot reload</li>
+                        <li>Smart defaults</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Auto Docs</h3>
+                    <p>Beautiful API documentation generated automatically from your code. Always up-to-date.</p>
+                    <ul class="feature-list">
+                        <li>OpenAPI 3.0</li>
+                        <li>Interactive UI</li>
+                        <li>Code examples</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Type Safe</h3>
+                    <p>Full TypeScript support with automatic type inference. Catch errors before runtime.</p>
+                    <ul class="feature-list">
+                        <li>Auto-complete</li>
+                        <li>Type checking</li>
+                        <li>IntelliSense</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Built on modern runtime. Handle millions of requests with minimal resources.</p>
+                    <ul class="feature-list">
+                        <li>Sub-ms latency</li>
+                        <li>Auto-scaling</li>
+                        <li>Edge ready</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>Plug & Play</h3>
+                    <p>Rich ecosystem of plugins. Add auth, database, caching with one line.</p>
+                    <ul class="feature-list">
+                        <li>50+ plugins</li>
+                        <li>Custom plugins</li>
+                        <li>Zero overhead</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Built-in Monitoring</h3>
+                    <p>Real-time metrics, logging, and error tracking. Know what's happening.</p>
+                    <ul class="feature-list">
+                        <li>Live dashboard</li>
+                        <li>Error alerts</li>
+                        <li>Performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section id="quickstart" class="code-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Get Started</div>
+                <h2>Three Steps to Production</h2>
+            </div>
+            <div class="code-grid">
+                <div class="code-card">
+                    <div class="code-header">1. Install</div>
+                    <div class="code-body">
+                        <pre>npm install rapidapi
+# or
+pnpm add rapidapi</pre>
+                    </div>
+                </div>
+                <div class="code-card">
+                    <div class="code-header">2. Create API</div>
+                    <div class="code-body">
+                        <pre>import { api } from 'rapidapi'
+
+export default api({
+  GET: () => ({ hello: 'world' })
+})</pre>
+                    </div>
+                </div>
+                <div class="code-card">
+                    <div class="code-header">3. Deploy</div>
+                    <div class="code-body">
+                        <pre>rapid deploy
+
+✓ Built in 0.3s
+✓ Deployed to production
+→ api.yourdomain.com</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Ship?</h2>
+                <p>Join <span class="cta-highlight">10,000+ developers</span> building production APIs with RapidAPI</p>
+                <a href="#" class="btn" style="font-size: 1.25rem; padding: 1.5rem 3rem;">Start Building Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>RapidAPI</h3>
+                    <p>The fastest way to build production REST APIs</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Quick Start</a></li>
+                        <li><a href="#">Examples</a></li>
+                        <li><a href="#">API Reference</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 RapidAPI. Open source under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
