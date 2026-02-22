@@ -1,10 +1,17 @@
 # RapidAPI Framework
 
-**Lightning-fast REST API framework with automatic documentation, type safety, and zero configuration**
+## Lightning-fast REST API framework with automatic documentation, type safety, and zero configuration
 
 ## 🌐 Live Demo
 
-View the website: https://muffy86.github.io/rapidapi-framework/
+View the website: [https://muffy86.github.io/rapidapi-framework/](https://muffy86.github.io/rapidapi-framework/)
+
+## 🧭 Site Sections
+
+- Hero + primary call-to-action
+- Features
+- Quick Start
+- Footer links to project resources
 
 ## 🎨 Design Philosophy
 
@@ -42,9 +49,29 @@ export default api({
 rapid deploy
 ```
 
+## 💻 Run Locally
+
+This project is a static page.
+
+```bash
+# Option 1 (Python)
+python -m http.server 5500
+
+# then open
+http://localhost:5500
+```
+
+You can also use the VS Code Live Server extension.
+
+## 🔗 Links
+
+- Repository: [https://github.com/muffy86/rapidapi-framework](https://github.com/muffy86/rapidapi-framework)
+- Documentation: [https://github.com/muffy86/rapidapi-framework#readme](https://github.com/muffy86/rapidapi-framework#readme)
+
 ## 🛠️ Tech Stack
 
 - Pure HTML/CSS
+- Minimal vanilla JavaScript (mobile navigation toggle)
 - Google Fonts (Space Grotesk, Inter, JetBrains Mono)
 - Neo-Brutalism design system
 - Responsive layout

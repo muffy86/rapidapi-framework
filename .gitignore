@@ -1,0 +1,5 @@
+.history/
+.specstory/
+.vscode/
+firebase-debug.log
+*.log
