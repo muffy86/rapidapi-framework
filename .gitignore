@@ -1,5 +1,9 @@
 .history/
 .specstory/
 .vscode/
+.claude/
+.github/
 firebase-debug.log
 *.log
+
+/net-commander
