@@ -153,6 +153,19 @@
         top: 1rem;
       }
 
+      /* Screen reader only */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
       /* Button */
       .btn {
         padding: 1rem 2rem;
@@ -523,11 +536,11 @@
     <nav>
       <div class="container">
         <div class="logo">
-          <div class="logo-icon">⚡</div>
-          RapidAPI
+          <div class="logo-icon" aria-hidden="true">⚡</div>
+          <span class="sr-only">RapidAPI</span>
         </div>
         <ul class="nav-links" id="mainNav">
-          <li><a href="#features">Features</a></li>
+          <li><a href="#core-features">Features</a></li>
           <li><a href="#quickstart">Quick Start</a></li>
           <li>
             <a
@@ -544,8 +557,9 @@
           aria-label="Toggle menu"
           aria-expanded="false"
           aria-controls="mainNav"
+          aria-haspopup="true"
         >
-          ☰
+          <span class="sr-only">Menu</span>
         </button>
         <a href="#quickstart" class="btn">Get Started</a>
       </div>
@@ -553,7 +567,7 @@
 
     <main id="main-content">
       <!-- Hero -->
-      <section id="top" class="hero">
+      <section id="hero" class="hero">
         <div class="container">
           <div class="hero-content">
             <div>
@@ -586,7 +600,7 @@
       </section>
 
       <!-- Features -->
-      <section id="features" class="features">
+      <section id="core-features" class="features">
         <div class="container">
           <div class="section-header">
             <div class="section-badge">Core Features</div>
